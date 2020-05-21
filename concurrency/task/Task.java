@@ -1,5 +1,4 @@
 import java.util.concurrent.Callable;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Task<T> {
     private final Callable<? extends T> callable;
@@ -12,7 +11,7 @@ public class Task<T> {
         this.started = false;
     }
 
-    public T get() throws Exception {
+    public T get() throws RuntimeException {
         if (res != null) {
             return res;
         }
@@ -28,8 +27,14 @@ public class Task<T> {
             }
         }
         if (!firstChanged) {
-            while (res == null && exception == null) {
-                wait();
+            synchronized (this) {
+                while (res == null && exception == null) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
 
@@ -42,13 +47,16 @@ public class Task<T> {
 
         try {
             res = callable.call();
-            notifyAll();
+            synchronized (this) {
+                notifyAll();
+            }
             return res;
-        } catch (RuntimeException e) {
-            exception = e;
-            notifyAll();
+        } catch (Exception e) {
+            exception = new RuntimeException(e);
+            synchronized (this) {
+                notifyAll();
+            }
             throw exception;
         }
-
     }
 }
