@@ -26,16 +26,21 @@ public class RegisterServlet extends HttpServlet {
 
         String user = req.getParameter("userName");
         String pass = req.getParameter("userPass");
-
-        if (user.equals("admin") || doesUserExist(user)) {
-            write.println("<h1>Please, change your login.</h1>");
+        if (user.isEmpty() || pass.isEmpty()) {
+            write.println("<h1>Please, write login and password.</h1>");
             RequestDispatcher rd = servletContext.getRequestDispatcher("/RegisterForm.html");
             rd.include(req, resp);
         } else {
-            addUser(user, pass);
-            write.println("<h1>You have successfully registered.</h1>");
-            RequestDispatcher rd = servletContext.getRequestDispatcher("/LoginForm.html");
-            rd.include(req, resp);
+            if ("admin".equals(user) || doesUserExist(user)) {
+                write.println("<h1>Please, change your login.</h1>");
+                RequestDispatcher rd = servletContext.getRequestDispatcher("/RegisterForm.html");
+                rd.include(req, resp);
+            } else {
+                addUser(user, pass);
+                write.println("<h1>You have successfully registered.</h1>");
+                RequestDispatcher rd = servletContext.getRequestDispatcher("/LoginForm.html");
+                rd.include(req, resp);
+            }
         }
     }
 }
