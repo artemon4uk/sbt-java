@@ -26,8 +26,9 @@ public class RegisterServlet extends HttpServlet {
 
         String user = req.getParameter("userName");
         String pass = req.getParameter("userPass");
-        if (user.isEmpty() || pass.isEmpty()) {
-            write.println("<h1>Please, write login and password.</h1>");
+
+        if (user == null || pass == null || user.isEmpty() || pass.isEmpty()) {
+            write.println("<h1>Error. Please, write login and password or reload page.</h1>");
             RequestDispatcher rd = servletContext.getRequestDispatcher("/RegisterForm.html");
             rd.include(req, resp);
         } else {
