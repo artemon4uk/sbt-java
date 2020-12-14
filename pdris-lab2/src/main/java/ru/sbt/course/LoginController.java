@@ -9,7 +9,13 @@ import ru.sbt.course.registration.DataBase;
 
 @Controller
 public class LoginController {
-    private final AuditService auditService = new AuditService();
+    private final AuditService auditService;
+    private final DataBase dataBase;
+
+    public LoginController(AuditService auditService, DataBase dataBase) {
+        this.auditService = auditService;
+        this.dataBase = dataBase;
+    }
 
     private static final String AUDIT = "audit";
     private static final String REGISTRATION = "registration";
@@ -31,14 +37,14 @@ public class LoginController {
         if (user.getName() == null) {
             return LOGIN;
         }
-        boolean doesUserExist = DataBase.doesUserExist(user);
-        boolean doesPasswordRight = DataBase.doesPasswordRight(user);
+        boolean doesUserExist = dataBase.doesUserExist(user);
+        boolean doesPasswordRight = dataBase.doesPasswordRight(user);
         addAttributesForLogin(model, doesUserExist, doesPasswordRight, user.getName());
         if (!doesUserExist) {
             auditService.addLog(user, "User doesn't exist");
             return LOGIN;
         }
-        if (!DataBase.doesPasswordRight(user)) {
+        if (!dataBase.doesPasswordRight(user)) {
             auditService.addLog(user, "Wrong password");
             return LOGIN;
         }
@@ -51,7 +57,7 @@ public class LoginController {
         if (user.getName() == null || "".equals(user.getName())) {
             return LOGIN;
         }
-        boolean usingExistLogin = DataBase.doesUserExist(user);
+        boolean usingExistLogin = dataBase.doesUserExist(user);
         boolean usingAdminLogin = "admin".equals(user.getName());
 
         if (usingExistLogin) {
@@ -62,7 +68,7 @@ public class LoginController {
             addAttributesForRegistration(model, true, "You can't use \"admin\" login.");
             return REGISTRATION;
         }
-        DataBase.addUser(user);
+        dataBase.addUser(user);
         return LOGIN;
     }
 
