@@ -1,0 +1,191 @@
+{
+	"id": "418714c9-7cc9-45a9-be22-b51594e25604",
+	"name": "pdris-lab",
+	"timestamp": "2020-12-18T14:31:19.142Z",
+	"collection_id": "e54b56d8-ea98-4691-8a06-bb2cc2049282",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 8,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "31deae2c-9c05-4dc7-9046-b41d13e2eb12",
+			"name": "requestService",
+			"url": "http://localhost:8080/currency?n=6",
+			"time": 16,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Check length": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check length": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Check length": true
+				}
+			]
+		},
+		{
+			"id": "af11d30d-d15d-4336-8d7e-848d8dc7602c",
+			"name": "currensyRequest2",
+			"url": "http://localhost:8080/currency?n=-2",
+			"time": 8,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Status code is 500": true
+			},
+			"testPassFailCounts": {
+				"Status code is 500": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 500": true
+				}
+			]
+		},
+		{
+			"id": "3da78540-846d-4fc9-b8f9-12c3fee02108",
+			"name": "weatherRequest",
+			"url": "http://localhost:8080/weather?n=5&city=London",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Check length": true,
+				"Is city London": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check length": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Is city London": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Check length": true,
+					"Is city London": true
+				}
+			]
+		},
+		{
+			"id": "133c284f-323b-41ec-8720-17948add9f1e",
+			"name": "weatherRequest2",
+			"url": "http://localhost:8080/weather?n=-3&city=London",
+			"time": 7,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Status code is 500": true
+			},
+			"testPassFailCounts": {
+				"Status code is 500": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code is 500": true
+				}
+			]
+		},
+		{
+			"id": "b3eedd64-6114-4ba2-8d1e-77c709b69bc5",
+			"name": "predictRequest",
+			"url": "http://localhost:8080/predict?city=London",
+			"time": 354,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				354
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 400,
+	"collection": {
+		"requests": [
+			{
+				"id": "31deae2c-9c05-4dc7-9046-b41d13e2eb12",
+				"method": "GET"
+			},
+			{
+				"id": "af11d30d-d15d-4336-8d7e-848d8dc7602c",
+				"method": "GET"
+			},
+			{
+				"id": "3da78540-846d-4fc9-b8f9-12c3fee02108",
+				"method": "GET"
+			},
+			{
+				"id": "133c284f-323b-41ec-8720-17948add9f1e",
+				"method": "GET"
+			},
+			{
+				"id": "b3eedd64-6114-4ba2-8d1e-77c709b69bc5",
+				"method": "GET"
+			}
+		]
+	}
+}
